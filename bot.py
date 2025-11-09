@@ -10,9 +10,7 @@ from discord.ext import commands
 
 import aiosmtplib
 import redis.asyncio as aioredis
-from dotenv import load_dotenv
 
-load_dotenv()
 
 # --- THESE ARE NOW PULLED FROM YOUR .env FILE ---
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
