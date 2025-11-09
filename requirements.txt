@@ -1,0 +1,4 @@
+discord.py
+aiosmtplib
+redis[hiredis]
+python-dotenv
