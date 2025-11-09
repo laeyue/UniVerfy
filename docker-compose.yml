@@ -9,8 +9,6 @@ services:
     # We will add the environment variables in the Portainer UI
     depends_on:
       - redis  # Wait for the redis container to be healthy
-    networks:
-      - npm-network
 
   # This is the Redis database
   redis:
@@ -19,8 +17,6 @@ services:
     restart: unless-stopped
     volumes:
       - redis-data:/data  # This makes your data persist if the container restarts
-    networks:
-      - npm-network
 
 # This creates a private network for our containers
 networks:
