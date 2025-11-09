@@ -3,24 +3,39 @@ version: '3.8'
 services:
   # This is your Python bot
   bot:
-    build: .  # This tells Docker to build from the Dockerfile in this folder
+    build: .  
     container_name: discord-verify-bot
     restart: unless-stopped
-    # We will add the environment variables in the Portainer UI
+    
+    # --- THIS IS THE NEW, HARDCODED BLOCK ---
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - SMTP_HOST=smtp-relay.brevo.com
+      - SMTP_PORT=587
+      - SMTP_USER=9b27f7001@smtp-brevo.com
+      - SMTP_PASS=${SMTP_PASS}
+      - SMTP_FROM=verify@laeyue.top
+      - REDIS_URL=redis://redis:6379/2
+      - ROLE_NAME=Verified
+      - VERIFICATION_TTL=120
+    # --- END OF NEW BLOCK ---
+
     depends_on:
-      - redis  # Wait for the redis container to be healthy
+      - redis  
 
   # This is the Redis database
   redis:
-    image: redis:7-alpine  # Use a small, efficient Redis image
+    image: redis:7-alpine  
     container_name: discord-redis
     restart: unless-stopped
     volumes:
-      - redis-data:/data  # This makes your data persist if the container restarts
+      - redis-data:/data  
+
 
 # This creates a private network for our containers
 networks:
   npm-network:
+    driver: bridge
 
 # This defines the persistent storage volume
 volumes:
